@@ -14,12 +14,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <%String popMsg = (String) session.getAttribute("popMsg");%>
-    <%if (popMsg != null && popMsg.length() > 0) {%>
-    <script type="text/javascript">
-        alert(<%=popMsg%>)
-    </script>
-    <%}%>
+    <%session.removeAttribute("user");%>
 </head>
 <body>
 <div class="container" style="background-color: azure">
@@ -67,10 +62,19 @@
                 <%}%>
             </table>
             <div class="container-fluid">
-                <button class="btn-warning" type="button" onclick="onFormSubmit()"><b>删除</b></button>
+                <button class="btn-danger" type="button" onclick="onFormSubmit()"><b>删除</b></button>
+                <button class="btn-warning" type="button" onclick="window.location.href='/details.jsp'"><b>注册</b>
+                </button>
             </div>
         </form>
     </div>
 </div>
 </body>
+<%String popMsg = (String) session.getAttribute("popMsg");%>
+<%if (popMsg != null && popMsg.length() > 0) {%>
+<script type="text/javascript">
+    window.alert("<%=popMsg%>");
+    <%session.removeAttribute("popMsg");%>
+</script>
+<%}%>
 </html>

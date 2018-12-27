@@ -33,6 +33,13 @@ public class User {
         Gender = gender;
     }
 
+    public User(String username, String password, Integer age, Boolean gender) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        Gender = gender;
+    }
+
     public Integer getId() {
         return id;
     }

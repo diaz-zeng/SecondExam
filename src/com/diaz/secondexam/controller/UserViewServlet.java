@@ -88,4 +88,20 @@ public class UserViewServlet extends BaseServlet {
         }
         return "/userView?doWhat=getAll";
     }
+
+    public String saveUser(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        try {
+            String name = request.getParameter("username");
+            String password = request.getParameter("password");
+            Integer age = Integer.parseInt(request.getParameter("age"));
+            Boolean gender = request.getParameter("gender").equals("男");
+            userService.addUser(new User( name, password, age, gender));
+            session.setAttribute("popMsg", "添加成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("popMsg", "添加失败");
+        }
+        return "/userView?doWhat=getAll";
+    }
 }

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/bootstrap-theme.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/details.js"></script>
 </head>
 <body>
 <div class="container" style="background-color: azure">
@@ -29,7 +30,7 @@
         }
     %>
     <div class="container-fluid">
-        <form accept-charset="UTF-8" action="/userView?doWhat=update" method="post">
+        <form accept-charset="UTF-8" id="detailsForm" action="/userView?doWhat=update" method="post">
             <input type="hidden" name="id" value="<%=user.getId()%>">
             <table class="table table-striped table-bordered table-hover">
                 <tr>
@@ -68,11 +69,11 @@
                     <td>
                         <div class="form-group container-fluid">
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="male" value="男">男
+                                <input type="radio" name="gender" id="male" value="男" required>男
                             </label>
 
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="female" value="女">女
+                                <input type="radio" name="gender" id="female" value="女" required>女
                             </label>
                         </div>
                     </td>
@@ -80,7 +81,9 @@
                 <tr>
                     <td colspan="2">
                         <div class="form-group">
-                            <button class="btn-primary" id="btnSubmit" type="submit"><b>提交</b></button>
+
+                            <button class="btn-primary" id="btnSubmit" type="submit"><b>提交修改</b></button>
+                            <button class="btn-success" id="btnSave" type="button" onclick="submitToSave()"><b>注册新用户</b></button>
                             <button class="btn-warning" id="btnBack" type="button" onclick="window.location.href='userView?doWhat=getAll'">
                                 <b>返回</b>
                             </button>
