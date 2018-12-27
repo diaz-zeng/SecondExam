@@ -16,28 +16,29 @@ import java.util.List;
  */
 @WebServlet("/userAction")
 public class UserActionServlet extends AjaxServlet {
-    private UserService userService = (UserService) ServiceProxy.getProxyInstance(UserServiceImpl.class);
+    private UserService userService = ServiceProxy.getProxyInstance(UserServiceImpl.class);
 
     public void removeUser(HttpServletRequest request, HttpServletResponse response) {
         try {
+            Object obj = request.getParameterValues("id");
             String[] sid = request.getParameterValues("id");
             Integer[] id = new Integer[sid.length];
+            response.setCharacterEncoding("UTF-8");
             PrintWriter writer = response.getWriter();
             for (int i = 0; i < sid.length; i++) {
                 id[i] = Integer.parseInt(sid[i]);
-                List<Integer> failed = userService.removeUser(id);
-                if (failed.size() > 0) {
-                    writer.write("用户删除失败，可能不存在:");
-                    writer.flush();
-                } else {
-                    writer.write("用户删除成功:");
-                    writer.flush();
-                }
             }
-
+            List<Integer> failed = userService.removeUser(id);
+            if (failed.size() > 0) {
+                writer.write("用户删除失败，可能不存在");
+                writer.flush();
+            } else {
+                writer.write("用户删除成功");
+                writer.flush();
+            }
+            writer.close();
         } catch (Exception e) {
             e.printStackTrace();
-            return;
         }
     }
 }

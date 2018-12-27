@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) {
-        return userDao.saveOrUpDate(user);
+        return userDao.save(user);
     }
 
     @Override
     public boolean update(User user) {
-        return userDao.saveOrUpDate(user);
+        return userDao.update(user);
     }
 
     @Override

@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 /**
+ * 用户实体类
+ *
  * @author Diaz
  * @since 2018/12/26 15:44
  */

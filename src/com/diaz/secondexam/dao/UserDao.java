@@ -9,15 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 用户持久化类
+ *
  * @author Diaz
  * @since 2018/12/26 15:43
  */
 public class UserDao {
-    private Session session = HibernateUtils.getSession();
+    private Session session;
 
-    public boolean saveOrUpDate(User user) {
+    /**
+     * 保存用户信息
+     * @param user
+     * @return
+     */
+    public boolean save(User user) {
+        session = HibernateUtils.getSession();
         try {
-            session.saveOrUpdate(user);
+            session.save(user);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -25,7 +33,29 @@ public class UserDao {
         }
     }
 
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    public boolean update(User user) {
+        session = HibernateUtils.getSession();
+        try {
+            session.update(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 删除用户信息
+     * @param oId
+     * @return
+     */
     public boolean remove(Integer oId) {
+        session = HibernateUtils.getSession();
         try {
             session.delete(session.get(User.class, oId));
             return true;
@@ -35,7 +65,13 @@ public class UserDao {
         }
     }
 
+    /**
+     * 获取用户信息
+     * @param oId
+     * @return
+     */
     public User get(Integer oId) {
+        session = HibernateUtils.getSession();
         User user = null;
         try {
             user = session.get(User.class, oId);
@@ -45,7 +81,12 @@ public class UserDao {
         return user;
     }
 
+    /**
+     * 查询全部用户信息(HQL查询)
+     * @return
+     */
     public List<User> getAll() {
+        session = HibernateUtils.getSession();
         List<User> users = new ArrayList<>();
         try {
 

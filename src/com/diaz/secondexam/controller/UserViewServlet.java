@@ -16,7 +16,7 @@ import java.util.List;
  * @author Diaz
  * @since 2018/12/26 15:46
  */
-@WebServlet("/userServlet")
+@WebServlet("/userView")
 public class UserViewServlet extends BaseServlet {
     private UserService userService = (UserService) ServiceProxy.getProxyInstance(UserServiceImpl.class);
 
@@ -56,7 +56,7 @@ public class UserViewServlet extends BaseServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "/index.jsp";
+        return "/userView?doWhat=getAll";
     }
 
     public String getDetails(HttpServletRequest request, HttpServletResponse response) {
@@ -68,7 +68,7 @@ public class UserViewServlet extends BaseServlet {
             return "details.jsp";
         } else {
             session.setAttribute("popMsg", "该用户不存在");
-            return "index.jsp";
+            return "/userView?doWhat=getAll";
         }
     }
 
@@ -79,13 +79,13 @@ public class UserViewServlet extends BaseServlet {
             String name = request.getParameter("username");
             String password = request.getParameter("password");
             Integer age = Integer.parseInt(request.getParameter("age"));
-            Boolean gender = request.getParameter("gender").equals("男") ? true : false;
+            Boolean gender = request.getParameter("gender").equals("男");
             userService.update(new User(id, name, password, age, gender));
             session.setAttribute("popMsg", "更新成功");
         } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("popMsg", "更新失败");
         }
-        return "index.jsp";
+        return "/userView?doWhat=getAll";
     }
 }

@@ -25,7 +25,7 @@ public class AjaxServlet extends HttpServlet {
                         break;
                     }
                 }
-                this.getClass().getMethod(action,HttpServletRequest.class,HttpServletResponse.class).invoke(this,request,request);
+                this.getClass().getMethod(action,HttpServletRequest.class,HttpServletResponse.class).invoke(this,request,response);
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -1,32 +1,39 @@
 $(function () {
-    $("#selectAll").onclick(function () {
+    $("#selectAll").click(function () {
         if (this.checked) {
             $("[name=id]:checkbox").prop("checked", true);
         } else {
-            $("[name=id]:checkbox").prop("checked", true);
+            $("[name=id]:checkbox").prop("checked", false);
         }
-    })
+    });
 })
+
+function update(id) {
+    window.location.href=("/userView?doWhat=getDetails&id="+id);
+}
 
 function onFormSubmit() {
     // if($("#indexForm").serializeArray().length>0){
     //
     // }
     var checkedID = [];
-    $("[name=id]:checkbox").each(function (i) {
-        if(this.checked){
-            checkedID[i] = this.val;
+    $("[name='id']:checkbox").each(function (i) {
+        if(this.checked==true){
+            checkedID[i] = this.value;
         }
     })
     if(checkedID.length>0){
         $.ajax({
             type: "POST",
-            dataType: "text",
             url: "/userAction?action=removeUser",
             async: true,
-            data: {id:checkedID},
-            success: function (result) {
-                alert(result.responseText);
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data: $("#indexForm").serialize(),
+            dataType:'text',
+            success: function (data) {
+                console.log(data);
+                alert(data);
+                $("tr:has([name='id']:checked)").remove();
             },
             error: function () {
                 alert("操作失败");
